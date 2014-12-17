@@ -3,7 +3,11 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "precise64"
-  config.vm.network :public_network
-  # change that to use chef/puppet
-  config.vm.provision "shell", path: "install_memcached.sh"
+  (1..2).each do |n|
+    config.vm.define ("memcached_node%d" % n) do |machine|
+      machine.vm.network :public_network
+      # change that to use chef/puppet
+      machine.vm.provision "shell", path: "install_memcached.sh"
+    end
+  end
 end
