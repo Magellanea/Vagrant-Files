@@ -1,0 +1,10 @@
+# Initial zookeeper vagrant file
+# TODO use a better provisioning for handling conf files
+Vagrant.configure(2) do |config|
+  config.vm.box = "precise64"
+  config.vm.define ("redmine_node") do |machine|
+    machine.vm.network :public_network
+    # change that to use chef/puppet
+    machine.vm.provision "shell", path: "setup_redmine.sh"
+  end
+end
